@@ -3,7 +3,7 @@ Photogrammetric Camera Calibration script for Pinhole and Fisheye lens cameras.
 
 ## Usage
 Place this script in the directory where the calibration images are located. Adjust the parameters according to the physical checkerboard pattern and run the script. The script will create three folders in its directory:
-- **Corners:** Contains images with inner corners detected and drawn for each image used in calibration.
+- **Corners:** Script will output the images with inner corners detected and drawed for every image given for calibration.
 - **Poses:** If calibration is successful, this folder contains the images (used in calibration) with poses drawn.
 - **Undistorted:** If calibration is successful, this folder contains the images (used in calibration) with distortion reversed.
 
