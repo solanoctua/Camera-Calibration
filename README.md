@@ -145,7 +145,9 @@ The accuracy of calibration depends heavily on the selection of camera poses fro
 
 1. **Pattern Coverage in the Frame**
 
-To model lens distortion effectively, it is essential to ensure that the calibration pattern covers the entire frame, especially near the edges and corners. This can be verified by checking the `allcorners.png` image. If certain areas of the frame are not adequately covered, additional images should be captured to address these gaps. Aim for even and homogeneous coverage of the frame to prevent any bias in the calibration model.
+    - To model lens distortion effectively, it is essential to ensure that the calibration pattern covers the entire frame, especially near the edges and corners.
+    - This can be verified by checking the `allcorners.png` image. If certain areas of the frame are not adequately covered, additional images should be captured to address these gaps.
+    - Aim for even and homogeneous coverage of the frame to prevent any bias in the calibration model.
 
 2. **Focal Length Estimation**
 
@@ -172,7 +174,7 @@ To model lens distortion effectively, it is essential to ensure that the calibra
    - Ensure that the checkerboard is sufficiently visible with good contrast. Without good contrast, corner detection may fail.
 
 After collecting sufficient images, start the calibration script. If some checkerboard corners are not detected in certain images, those images will be automatically discarded.
-
+Once the calibration process is complete, the distortion can be modeled using the `VisualizePinholeDistortionModel.m` script.
 
 ## **Measuring Calibration Accuracy**
 Once the script completes, proceed with the following checks, unless an error occurs, in which case refer to the Troubleshooting section:
@@ -186,9 +188,6 @@ If most of the frame is covered but the undistorted images are unsatisfactory, s
 Additionally, check the individual re-projection errors of the images. If an image’s re-projection error is significantly higher than the mean, it may be an outlier. This could be due to concentrating too many images in one part of the frame. For example, if 10 images have the checkerboard at the center, then the 11th image with the checkerboard near the corners might become an outlier, disrupting the model constructed by the other images. However, if one image is an outlier, this indicates that the distortion model is not representing some part of the camera frame well. This should be detected by judging the straightness of lines in the undistorted images. Another possibility is an issue with the image itself, which should be detected during manual corner inspection.
 
 If all drawn corners are fine but the undistorted images still appear incorrect, the problem is likely not with corner detection.
-
-Once the calibration process is complete, the distortion can be modeled using the `VisualizePinholeDistortionModel.m` script.
-
 
 ### **RMS Re-projection Error**
 
