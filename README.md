@@ -107,7 +107,7 @@ When creating the checkerboard pattern, consider the following:
    - Print the checkerboard on retroreflective material, if available, to eliminate light reflections that can hinder corner detection. Laminating the pattern may cause glare, leading to incorrect corner detection.
    - Mount the target on a rigid, flat surface. Any warping will reduce calibration accuracy.
    - Ensure white margins around the checkerboard pattern, as these are crucial for corner detection algorithms in MATLAB and OpenCV. Without these borders, the algorithms may fail to detect any corner points.
-   - 
+
 1. **Pattern Size**: The pattern should be large enough to cover the entire camera field of view in a few passes. This can be determined by the camera’s field of view at certain distances. For example, a camera with given sensor sizes and an approximate focal length will have a 2.85-meter horizontal and 2.15-meter vertical field of view at a 2-meter distance. Using an A3 paper (297 x 420 mm) checkerboard pattern, you can cover the camera's view in approximately 35 passes from a 2-meter distance.
 
 2. **Unit Square Size**: For a camera with the above parameters, a 3.3-centimeter (0.033 meters) square appears as nearly 15 pixels at a 2-meter distance. This size is adequate in good lighting conditions without blurring. To ensure successful images, consider increasing the unit square size.
@@ -126,7 +126,11 @@ We use a 7x10 checkerboard (6x9 inner corners) with squares having 55 mm edges.
 
 A camera model describes the mathematical relationship between a point in the 3D world and its projection onto the 2D image plane.
 
-Before starting the calibration script, decide which camera model to use. For cameras with a field of view between 100 and 180 degrees, the fisheye model provides a more accurate distortion model and precise focal length calculation. For angles under 90 degrees, the pinhole model is more accurate; however, it becomes less effective for wider angles. The pinhole model cannot accurately calibrate cameras with wide or fisheye lenses, as it cannot project a hemispherical field of view onto a finite image plane via perspective projection. Therefore, choosing the correct camera model is crucial.
+Before starting the calibration script, decide which camera model to use. 
+
+  - For cameras with a field of view between 90 and 180 degrees, the fisheye model provides a more accurate distortion model and precise focal length calculation.
+  - For angles under 90 degrees, the pinhole model is more accurate; however, it becomes less effective for when viewing angle of the lens becomes higher.
+  - The pinhole model cannot accurately calibrate cameras with wide or fisheye lenses, as it cannot project a hemispherical field of view onto a finite image plane via perspective projection. Therefore, choosing the correct camera model is crucial.
 
 ## Starting Calibration
 There are several methods to perform calibration. One common approach is to fix the camera and change the checkerboard's position and orientation while capturing images or video.
@@ -135,9 +139,9 @@ There are several methods to perform calibration. One common approach is to fix 
 
 The accuracy of calibration depends heavily on the selection of camera poses from which images of the calibration object are acquired. For satisfactory calibration, ensure that the target successively covers the entire image area, or else the estimation of radial distortion and other parameters may remain suboptimal.
 
-**Fix the Camera:** Set up the camera on a stable platform like a tripod to avoid any movement during image capture.
-**Move the Checkerboard:** Change the position and orientation of the checkerboard in front of the camera, ensuring that it covers the entire frame. Rotate and tilt the checkerboard in all three axes to capture a diverse set of images.
-**Frame Coverage:** Ensure that the entire field of view is covered by the checkerboard at various angles and distances. This helps in accurately modeling the lens distortion and other intrinsic parameters.
+  **Fix the Camera:** Set up the camera on a stable platform like a tripod to avoid any movement during image capture.
+  **Move the Checkerboard:** Change the position and orientation of the checkerboard in front of the camera, ensuring that it covers the entire frame. Rotate and tilt the checkerboard in all three axes to capture a diverse set of images.
+  **Frame Coverage:** Ensure that the entire field of view is covered by the checkerboard at various angles and distances. This helps in accurately modeling the lens distortion and other intrinsic parameters.
 
 1. **Pattern Coverage in the Frame**
 
@@ -167,7 +171,7 @@ Accurately calculating the focal length requires showing the effect of perspecti
 After collecting sufficient images, start the calibration script. If some checkerboard corners are not detected in certain images, those images will be automatically discarded.
 
 
-##### **Measuring Calibration Accuracy**
+## **Measuring Calibration Accuracy**
 Once the script completes, proceed with the following checks, unless an error occurs, in which case refer to the Troubleshooting section:
 
 1. **Frame Coverage**: Ensure that most of the camera frame is covered by the calibration images. Manually check the `allcorners.png` file saved by the script to see whether the entire frame is covered by the detected corners.
@@ -183,17 +187,17 @@ If all drawn corners are fine but the undistorted images still appear incorrect,
 Once the calibration process is complete, the distortion can be modeled using the `VisualizePinholeDistortionModel.m` script.
 
 
-###### **RMS Re-projection Error**
+### **RMS Re-projection Error**
 
 Re-projection error measures the L2-distance between detected checkerboard corners in images and corresponding world points projected into the same image using the camera model. By examining the re-projection error per image and the mean re-projection error, one can identify images with significantly higher errors, which should be excluded from the calibration set.
 
 Generally, if the re-projection error is under 1 pixel, calibration is considered successful. However, using the mean re-projection error as the sole indicator of calibration quality can be misleading. Even with low errors, poor calibration may result if the ideal procedure is not followed correctly, such as not covering the entire frame with the checkerboard. When the procedure is followed properly, the mean re-projection error reflects the calibration's accuracy.
 
-##### **Manual Check**
+### **Manual Check**
 
 To verify the calibration, one should manually inspect the undistorted output images. If calibration is done correctly, straight edges in the real world should appear straight in the undistorted images. For instance, a straight object like a ruler should appear straight in the undistorted image, whereas it may appear warped in the original image. The amount of warping depends on the distortion present in the lens and the distance between the object and the frame's center. Checking images with objects near the frame corners can make the difference noticeable, even to an inexperienced eye.
 
-##### **Troubleshooting**
+## **Troubleshooting**
 
 1. **Inaccurate Localization of Pattern Corners:** Sometimes, OpenCV raises an error even with a successful image set: 
    - Error: `(-215:Assertion failed) fabs(norm_u1) > 0 in function 'cv::internal::InitExtrinsics'`.
@@ -203,7 +207,7 @@ To verify the calibration, one should manually inspect the undistorted output im
    - Error: `(-3:Internal error) CALIB_CHECK_COND - Ill-conditioned matrix for input array 37 in function 'cv::internal::CalibrateExtrinsics'`.
    - This error occurs when checkerboard corner points fall near the image's edge. The solution is to remove the problematic image and retry calibration. OpenCV provides the index of the image causing the error, and removing this image may resolve the issue.
 
-##### **Caution**
+## **Caution**
 
 1. **Lens Changes:** If the lens is twisted or replaced, the distortion model must be recalibrated, as it is no longer valid.
 2. **Resolution Dependency:** Camera intrinsic parameters are specific to the image resolution used during calibration. For example, intrinsic parameters obtained from calibration with 640x480 resolution images cannot be used directly with the same camera at 960x720 resolution unless the parameters are scaled correctly for the new resolution. However, the distortion model is invariant to resolution changes.
