@@ -120,8 +120,6 @@ You may use the following sites to create a checkerboard suitable for your camer
 - [Ninox Calibration Targets](https://www.ninox360.com/calibration-targets)
 - [Calib.io Camera Calibration Pattern Generator](https://calib.io/pages/camera-calibration-pattern-generator)
 
-We use a 7x10 checkerboard (6x9 inner corners) with squares having 55 mm edges.
-
 ## Camera Model
 
 A camera model describes the mathematical relationship between a point in the 3D world and its projection onto the 2D image plane.
@@ -151,7 +149,10 @@ To model lens distortion effectively, it is essential to ensure that the calibra
 
 2. **Focal Length Estimation**
 
-Accurately calculating the focal length requires showing the effect of perspective. Lens distortion can be accurately determined from fronto-parallel images, but focal length estimation depends on observing foreshortening. Images taken with the checkerboard tilted up to ±45 degrees in both the horizontal and vertical directions are ideal for this purpose. Using images where the checkerboard is tilted more than 45 degrees may result in failed corner detection due to excessive foreshortening. Therefore, a mix of fronto-parallel and tilted images is essential for high-accuracy focal length estimation.
+    - Accurately calculating the focal length requires showing the effect of perspective. Lens distortion can be accurately determined from fronto-parallel images, but focal length estimation depends on observing foreshortening.
+    - Images taken with the checkerboard tilted up to ±45 degrees in both the horizontal and vertical directions are ideal for this purpose.
+    - Using images where the checkerboard is tilted more than 45 degrees may result in failed corner detection due to excessive foreshortening.
+    - Therefore, a mix of fronto-parallel and tilted images is essential for high-accuracy focal length estimation.
 
 3. **Pattern Distance to Camera**
     - At extremely short ranges, the pinhole camera model becomes less accurate because the actual light path through the lens must be considered.
