@@ -22,6 +22,18 @@ Camera intrinsic matrix and coefficients of the (polynomial) lens distortion mod
 intrinsic matrix =  [f_x  , 0    , c_x ]
                    [0    , f_y  , c_y ]
                    [0    , 0    , 1   ]
+
+focal lengths   : fx, fy
+aspect ratio    : a = fy/fx
+principal point : cx, cy
+
+distCoeffs = [k1,k2,p1,p2,k3,k4,k5,k6,s1,s2,s3,s4,taux,tauy]
+
+radial distortion     : k1, k2, k3
+tangential distortion : p1, p2
+rational distortion   : k4, k5, k6
+thin prism distortion : s1, s2, s3, s4
+tilted distortion     : taux, tauy (ignored here)
 ```
 
 ### Example Output:
