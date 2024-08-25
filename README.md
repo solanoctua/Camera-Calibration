@@ -74,7 +74,7 @@ fx = focal length(mm) ∗ frame width(px) / sensor width(mm)
 fy = focal length(mm) ∗ frame height(px) / sensor height(mm)
 ```
 
-## COMPREHENSIVE GUIDE
+# COMPREHENSIVE GUIDE
 
 ## Importance of Camera Calibration
 
@@ -93,7 +93,7 @@ To project a 3D object point onto the image plane, the point must first be trans
 - **Intrinsic (Internal) Parameters**: These include the focal length, optical center, and lens distortion coefficients.
 - **Extrinsic (External) Parameters**: These refer to the orientation (rotation and translation) of the camera relative to a world coordinate system, which could be aligned with a calibration pattern such as a checkerboard.
 
-## Photogrammetric Calibration Procedure
+# Photogrammetric Calibration Procedure
 
 ## Choosing a Calibration Pattern
 
@@ -140,7 +140,9 @@ There are several methods to perform calibration. One common approach is to fix 
 The accuracy of calibration depends heavily on the selection of camera poses from which images of the calibration object are acquired. For satisfactory calibration, ensure that the target successively covers the entire image area, or else the estimation of radial distortion and other parameters may remain suboptimal.
 
   **Fix the Camera:** Set up the camera on a stable platform like a tripod to avoid any movement during image capture.
+  
   **Move the Checkerboard:** Change the position and orientation of the checkerboard in front of the camera, ensuring that it covers the entire frame. Rotate and tilt the checkerboard in all three axes to capture a diverse set of images.
+  
   **Frame Coverage:** Ensure that the entire field of view is covered by the checkerboard at various angles and distances. This helps in accurately modeling the lens distortion and other intrinsic parameters.
 
 1. **Pattern Coverage in the Frame**
@@ -152,11 +154,11 @@ To model lens distortion effectively, it is essential to ensure that the calibra
 Accurately calculating the focal length requires showing the effect of perspective. Lens distortion can be accurately determined from fronto-parallel images, but focal length estimation depends on observing foreshortening. Images taken with the checkerboard tilted up to ±45 degrees in both the horizontal and vertical directions are ideal for this purpose. Using images where the checkerboard is tilted more than 45 degrees may result in failed corner detection due to excessive foreshortening. Therefore, a mix of fronto-parallel and tilted images is essential for high-accuracy focal length estimation.
 
 3. **Pattern Distance to Camera**
-  - At extremely short ranges, the pinhole camera model becomes less accurate because the actual light path through the lens must be considered.
-  - It is common practice to take multiple images at different orientations and distances. Any problems with images taken at certain distances will be indicated by the re-projection error.
+    - At extremely short ranges, the pinhole camera model becomes less accurate because the actual light path through the lens must be considered.
+    - It is common practice to take multiple images at different orientations and distances. Any problems with images taken at certain distances will be indicated by the re-projection error.
 
 5. **Number of Captured Images**
-  - To achieve the best calibration results, it is important to capture as many images of the calibration target as possible. Repeating the process until the entire current field of view is tiled is crucial.
+    - To achieve the best calibration results, it is important to capture as many images of the calibration target as possible. Repeating the process until the entire current field of view is tiled is crucial.
 
 5. **Motion Blur**:
    - Motion blur occurs when the target moves too quickly during exposure, causing the object’s position to vary between the start and end of exposure. This blur can cause corner detection to fail.
