@@ -174,14 +174,15 @@ The accuracy of calibration depends heavily on the selection of camera poses fro
    - Ensure that the checkerboard is sufficiently visible with good contrast. Without good contrast, corner detection may fail.
 
 After collecting sufficient images, start the calibration script. If some checkerboard corners are not detected in certain images, those images will be automatically discarded.
+
 Once the calibration process is complete, the distortion can be modeled using the `VisualizePinholeDistortionModel.m` script.
 
-## **Measuring Calibration Accuracy**
+### **Measuring Calibration Accuracy**
 Once the script completes, proceed with the following checks, unless an error occurs, in which case refer to the Troubleshooting section:
 
 1. **Frame Coverage**: Ensure that most of the camera frame is covered by the calibration images. Manually check the `allcorners.png` file saved by the script to see whether the entire frame is covered by the detected corners.
 
-2. **Undistorted Images**: Immediately check if the undistorted images look correct. Verify that straight lines in real life appear straight in the undistorted images. If they do, the calibration is likely successful.
+2. **Checking Undistorted Images**: Immediately check if the undistorted images look correct. Verify that straight lines in real life appear straight in the undistorted images. If they do, the calibration is likely successful.
 
 If most of the frame is covered but the undistorted images are unsatisfactory, some corners may not have been correctly detected, or the data may be suboptimal. Manually inspect the images with drawn corners to identify and remove problematic ones from the calibration set. After removing these images, repeat the calibration to achieve better results.
 
@@ -189,11 +190,11 @@ Additionally, check the individual re-projection errors of the images. If an ima
 
 If all drawn corners are fine but the undistorted images still appear incorrect, the problem is likely not with corner detection.
 
-### **RMS Re-projection Error**
+### **Root Mean Square (RMS) Re-projection Error**
 
-Re-projection error measures the L2-distance between detected checkerboard corners in images and corresponding world points projected into the same image using the camera model. By examining the re-projection error per image and the mean re-projection error, one can identify images with significantly higher errors, which should be excluded from the calibration set.
+Re-projection error measures the L2-distance between detected checkerboard corners in images and corresponding world points projected into the same image using the camera model. By examining the re-projection error per image and the RMS re-projection error, one can identify images with significantly higher errors, which should be excluded from the calibration set.
 
-Generally, if the re-projection error is under 1 pixel, calibration is considered successful. However, using the mean re-projection error as the sole indicator of calibration quality can be misleading. Even with low errors, poor calibration may result if the ideal procedure is not followed correctly, such as not covering the entire frame with the checkerboard. When the procedure is followed properly, the mean re-projection error reflects the calibration's accuracy.
+**Generally, if the RMS re-projection error is under 1 pixel, calibration is considered successful**. However, using the RMS re-projection error as the sole indicator of calibration quality can be misleading. Even with low errors, poor calibration may result if the ideal procedure is not followed correctly, such as not covering the entire frame with the checkerboard. When the procedure is followed properly, the mean re-projection error reflects the calibration's accuracy.
 
 ### **Manual Check**
 
