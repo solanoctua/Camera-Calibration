@@ -76,7 +76,7 @@ fy = focal length(mm) ∗ frame height(px) / sensor height(mm)
 
 ## COMPREHENSIVE GUIDE
 
-#### Importance of Camera Calibration
+## Importance of Camera Calibration
 
 A camera captures the 3D world and converts it into 2D pixel coordinates. However, the images produced often do not accurately represent the actual scene, due to the inherent characteristics of camera lenses or errors during the assembly or production of camera components. Even if the captured images seem fine, understanding the abstract camera model is crucial for tasks like image processing and computer vision applications. To achieve this, one must know the intrinsic camera parameters and the lens distortion model to bridge the gap between the physical camera and its abstract representation.
 
@@ -84,7 +84,7 @@ Ignoring lens distortions or intrinsic camera parameters during processes such a
 
 In calibration, we aim to estimate the intrinsic and extrinsic parameters of the camera model, which describe how a point in the 3D world is mapped to a corresponding point on the image plane through perspective projection. Distortion parameters, which can be estimated during calibration, are considered part of the intrinsic parameters of the camera.
 
-#### Calibration Goal
+## Calibration Goal
 
 The goal of the calibration process is to determine the 3×3 intrinsic camera matrix, the 3×3 rotation matrix, and the 3×1 translation vector using a set of known 3D world points and their corresponding pixel coordinates. Once these intrinsic and extrinsic parameters are obtained, the camera is considered calibrated.
 
@@ -93,15 +93,15 @@ To project a 3D object point onto the image plane, the point must first be trans
 - **Intrinsic (Internal) Parameters**: These include the focal length, optical center, and lens distortion coefficients.
 - **Extrinsic (External) Parameters**: These refer to the orientation (rotation and translation) of the camera relative to a world coordinate system, which could be aligned with a calibration pattern such as a checkerboard.
 
-#### Photogrammetric Calibration Procedure
+## Photogrammetric Calibration Procedure
 
-##### Choosing a Calibration Pattern
+## Choosing a Calibration Pattern
 
 Calibration is performed by observing a calibration object with known 3D geometry. The most commonly used calibration objects are checkerboards, circle grids, fiducial markers, and custom detector patterns. A checkerboard pattern, which consists of alternating black and white squares of equal size, is commonly used. The corners of these squares serve as control points and can be automatically detected in 2D images using a corner detection algorithm. Since the squares are of equal size, their 3D world coordinates can be determined by knowing the square size of the checkerboard.
 
 We use checkerboard patterns because they are distinct, easy to detect, and their corners provide ideal localization points due to sharp gradients in two directions. Assuming the X (right) and Y (down) axes are along the pattern plane and the Z-axis is perpendicular to it, all points on the checkerboard lie on the XY plane (Z = 0). The (X, Y) coordinates of each 3D point can be easily defined by selecting one reference point (0, 0) and defining the remaining corners relative to it.
 
-##### Preparing the Checkerboard
+## Preparing the Checkerboard
 
 When creating the checkerboard pattern, consider the following:
    - Print the checkerboard on retroreflective material, if available, to eliminate light reflections that can hinder corner detection. Laminating the pattern may cause glare, leading to incorrect corner detection.
@@ -122,7 +122,7 @@ You may use the following sites to create a checkerboard suitable for your camer
 
 We use a 7x10 checkerboard (6x9 inner corners) with squares having 55 mm edges.
 
-#### Camera Model
+## Camera Model
 
 A camera model describes the mathematical relationship between a point in the 3D world and its projection onto the 2D image plane.
 
@@ -131,7 +131,7 @@ Before starting the calibration script, decide which camera model to use. For ca
 ## Starting Calibration
 There are several methods to perform calibration. One common approach is to fix the camera and change the checkerboard's position and orientation while capturing images or video.
 
-##### **Capturing Images**
+### **Capturing Images**
 
 The accuracy of calibration depends heavily on the selection of camera poses from which images of the calibration object are acquired. For satisfactory calibration, ensure that the target successively covers the entire image area, or else the estimation of radial distortion and other parameters may remain suboptimal.
 
